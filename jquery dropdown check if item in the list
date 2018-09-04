@@ -1,0 +1,5 @@
+var optionExists = ($('#select-service option[value=' + serviceName.id + ']').length > 0);
+if(!optionExists)
+{
+$('#select-service').append(optionHtml2);
+}
