@@ -1,0 +1,10 @@
+var dateAr = '11/12/2018'.split('/');
+var newDate = dateAr[0] + '-' + dateAr[1] + '-' + dateAr[2];
+
+const monthNames = ["Հունվար", "Փետրվար", "Մարտ", "Ապրիլ", "Մայիս", "Հունիս",
+  "Հուլիս", "Օգոստոս", "Սեպտեմբեր", "Հոկտեմբեր", "Նոյեմբեր", "Դեկտեմբեր"
+];
+mon = (dateAr[1]-1);
+const d = new Date();
+document.write("The current month is " + monthNames[d.getMonth()]);
+alert(monthNames[mon]);
