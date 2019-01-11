@@ -1,0 +1,11 @@
+						$.ajax({
+							url: 'https://***/' +provider.id +'.jpg',
+							success: function (data) {
+							$('#provider-avatar').attr('src', 'https://***/' +provider.id +'.jpg');
+							//alert('exists');
+							},
+							error: function (data) {
+							$('#provider-avatar').attr('src', 'https://***/doctor_strange.jpg');
+							//alert('does not exist');
+							}
+							});
