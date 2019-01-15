@@ -1,0 +1,6 @@
+$("#button-next-2").position({
+				my:        "right top",
+				at:        "right bottom+10",
+				of:        $(".button-stick"), // or $(".hasDatepicker") (this)
+				collision: "none" // flip fit ...
+			});
