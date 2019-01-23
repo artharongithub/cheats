@@ -1,0 +1,18 @@
+function my_vc_shortcode5( $atts ) {
+	//echo $posts = $wpdb->get_results("SELECT option_name FROM **_options WHERE option_id = '1'");
+	global $wpdb;
+$customers = $wpdb->get_results("SELECT id FROM **_users WHERE id_roles = '2';");
+    echo '
+<div class="td-block-title-wrap"><h4 class="block-title td-block-title"><span class="td-pulldown-size">...</span></h4></div>
+<div class="demo">
+    <ul id="lightSlider">';
+foreach ( $customers as $customer ) { 
+//echo $customer->id;
+echo '<li data-thumb="../**/avatars/uploads/'.$customer->id.'.jpg">
+            <img src="../**/avatars/uploads/'.$customer->id.'.jpg" />
+        </li>';
+ }
+ echo '</ul></div>';
+//print_r($customers);
+//print_r($customers[0]->id);
+}
