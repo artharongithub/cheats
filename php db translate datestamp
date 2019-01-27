@@ -1,0 +1,19 @@
+<?php 
+//echo $date = '2019-01-25 16:15:00';
+//echo '<br>';
+//$date = date('F, Y', strtotime($date));
+//echo $date;
+
+class FrDate extends DateTime 
+{
+    public function month($format) 
+    {
+        $english = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Jan','Febr','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec');
+        $armenian = array('կիրակի', 'երկուշաբթի', 'երեքշաբթի', 'չորեքշաբթի', 'հինգշաբթի', 'ուրբաթ',
+						  'շաբաթ', 'հունվար', 'փետրվար', 'մարտ', 'ապրիլ', 'մայիս', 'հունիս',
+				  'հուլիս', 'օգոստոս', 'սեպտեմբեր', 'հոկտեմբեր', 'նոյեմբեր', 'դեկտեմբեր');
+        return str_replace($english, $armenian, parent::format($format));
+    }
+}
+$date = new FrDate('2019-01-27 16:15:00');
+echo $date->month('D - M');
