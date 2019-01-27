@@ -17,3 +17,4 @@ class FrDate extends DateTime
 }
 $date = new FrDate('2019-01-27 16:15:00');
 echo $date->month('D - M');
+?>
