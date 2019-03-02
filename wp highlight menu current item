@@ -1,0 +1,6 @@
+$p_title = get_the_title();
+
+<li><a href="https://***/home" class="<?php echo ($p_title == 'Home')?'active':'';?>">...</a></li>
+<li><a href="https://***/other1" class="<?php echo ($p_title == 'Other1')?'active':'';?>">...</a></li>
+<li><a href="https://***/other2" class="<?php echo ($p_title == 'Other2')?'active':'';?>">...</a></li>
+
