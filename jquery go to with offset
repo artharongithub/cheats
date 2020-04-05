@@ -5,3 +5,15 @@ jQuery('.less').on('click', function(){
                 }, 300); // scroll speed
     }, 500);
   });
+
+//////////  OR
+
+jQuery('.dd-header').on('click', function(){ 
+    var $this = jQuery(this);
+
+    setTimeout(function() {
+      jQuery('html, body').animate({
+        scrollTop: $this.offset().top - jQuery('.dd-header').outerHeight()
+      }, 300); 
+    }, 500);
+  });
