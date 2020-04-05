@@ -1,0 +1,7 @@
+jQuery('.less').on('click', function(){ 
+    setTimeout(function() {
+      jQuery('html, body').animate({
+                    scrollTop: jQuery(".hiex-hd-info-header").offset().top -100 // offset top -100 
+                }, 300); // scroll speed
+    }, 500);
+  });
