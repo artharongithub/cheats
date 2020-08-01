@@ -1,0 +1,13 @@
+if ( is_front_page() && is_home() ) {
+echo 'Default homepage';
+
+} elseif ( is_front_page()){
+echo 'Static homepage';
+
+} elseif ( is_home()){
+echo 'Blog page';
+
+} else {
+echo 'Everything else';
+
+}
