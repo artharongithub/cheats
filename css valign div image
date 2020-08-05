@@ -1,0 +1,3 @@
+display: table-cell;
+height: 100vh;
+vertical-align: middle;
