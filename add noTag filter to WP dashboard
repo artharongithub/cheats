@@ -1,0 +1,36 @@
+function wpse147471_add_no_tags_filter() {
+    if ( 'post' !== get_current_screen()->post_type ) {
+        return;
+    }
+
+    $selected = ( isset( $_GET['tag-filter'] ) && 'no-tags' === $_GET['tag-filter'] );
+    ?>
+    <select name="tag-filter">
+        <option value="">&mdash; Select &mdash;</option>
+        <option value="no-tags" <?php echo selected( $selected ); ?>>No Tags</option>
+    </select>
+    <?php
+}
+add_action( 'restrict_manage_posts', 'wpse147471_add_no_tags_filter' );
+
+function wpse147471_get_posts_with_no_tags( $query ) {
+    if ( ! is_admin() || ! $query->is_main_query() ) {
+        return;
+    }
+
+    if ( ! isset( $_GET['tag-filter'] ) || 'no-tags' !== $_GET['tag-filter'] ) {
+        return;
+    }
+
+    $tag_ids = get_terms( 'post_tag', array( 'fields' => 'ids' ) );
+
+    $query->set( 'tax_query', array(
+        array(
+            'taxonomy' => 'post_tag',
+            'field'    => 'id',
+            'terms'    => $tag_ids,
+            'operator' => 'NOT IN'
+        )
+    ) );
+}
+add_action( 'pre_get_posts', 'wpse147471_get_posts_with_no_tags' );
