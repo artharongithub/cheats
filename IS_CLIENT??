@@ -1,0 +1,12 @@
+	global $user_LK;
+	global $wpdb;
+	$join = "SELECT meta_value FROM {$wpdb->usermeta} WHERE user_id={$user_LK} AND meta_key = 'akkaunt_34'";
+	$selectQuery = $wpdb->get_results($join);
+	//print_r($selectQuery[0]->meta_value);
+	$is_client = ($selectQuery[0]->meta_value == 'Клиент');
+  
+  	if ( ! $usersdata ) {		
+    
+	} elseif (! $is_client) {	
+  
+	}
