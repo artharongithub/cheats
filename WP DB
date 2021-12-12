@@ -1,0 +1,5 @@
+global $wpdb;
+$query = $wpdb->get_results( "SELECT * FROM wp_rcl_orders WHERE user_id='1'" );
+//$result = $query['0']->order_id;
+foreach($query as $row){echo $row->order_id;}
+//print_r($query['0']->order_id);
