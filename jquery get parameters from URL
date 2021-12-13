@@ -1,0 +1,36 @@
+jQuery(function ($) {
+    
+if (window.location.href.indexOf("account") > -1) {
+
+setInterval(function(){
+    if (window.location.href.indexOf("chat") > -1) {
+        //alert(jQuery.urlParam('tab'));
+        jQuery(".rcl-userlist").hide();
+        //current_href = location.href;
+    } 
+    else {
+        jQuery(".rcl-userlist").show();
+    }
+},5);  
+}
+    
+/*if (window.location.href.indexOf("account") > -1) {
+
+jQuery.urlParam = function(name){
+var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+return results[1] || 0;
+};
+var current_href = location.href;
+setInterval(function(){
+    if(current_href !== location.href && jQuery.urlParam('tab') == 'chat'){
+        //alert(jQuery.urlParam('tab'));
+        jQuery(".rcl-userlist").hide();
+        //current_href = location.href;
+    } 
+    if (jQuery.urlParam('tab') !== 'chat') {
+        jQuery(".rcl-userlist").show();
+    }
+},5);  
+}*/   /************HALTING**************/
+    
+});
