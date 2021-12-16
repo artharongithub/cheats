@@ -1,0 +1,15 @@
+function get_related_author_posts() {
+    global $authordata, $post;
+    $authors_posts = get_posts( array( 'author' => $post->post_author, 'posts_per_page' => 10, 'post_type' => ttshowcase ) );
+    foreach ( $authors_posts as $authors_post ) {
+        $output .= $authors_post->ID;
+    }
+    return $output;
+}
+
+
+
+
+
+
+<?php echo get_related_author_posts(); ?>
