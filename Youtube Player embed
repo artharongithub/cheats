@@ -1,1 +1,17 @@
 <object style="height: 90px; width: 160px; float: left; clear: both; margin: 3px 10px 0 0;" data="http://www.youtube.com/embed/'.$vlink.'?autoplay=1"><param name="allowFullScreen" value="true" /></object>
+
+
+/////////////OR ///////ПРОТИВ ЛОМА НЕТ ПРИЕМА
+
+	global $user_LK;
+	global $wpdb;
+	$join = "SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = '$post->ID'";
+	$selectQuery = $wpdb->get_results($join);
+	$metan = $selectQuery[0]->meta_value; //get_post_meta(13858);
+	$banstring = ($metan != str_ireplace('?v=',"XX",$metan))? true: false;
+	if ($banstring) {
+	$vlink = substr((explode('?v=', $metan)[1]), 0, -3);
+    $v_player = '<script src="https://www.youtube.com/iframe_api"></script>
+<script>function onYouTubeIframeAPIReady() { player = new YT.Player("player", { videoId: "'.$vlink.'", events: { "onReady": onPlayerReady } });}</script>
+<div id="player" style="height: 90px; width: 160px; float: left; clear: both; margin: 3px 10px 0 0;"></div>';
+	}
