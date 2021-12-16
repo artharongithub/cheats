@@ -1,0 +1,2 @@
+global $post;
+$query = new WP_Query( array( 'author' => $post->post_author, 'post_type' => 'ttshowcase' ) );
