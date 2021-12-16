@@ -1,5 +1,10 @@
 global $post;
+//print_r($post->post_author);
+if (is_single()) {
 $query = new WP_Query( array( 'author' => $post->post_author, 'post_type' => 'ttshowcase' ) );
+		}
+
+
 ///////OR
 $args = array(
   'post_type' 	   => 'post',
