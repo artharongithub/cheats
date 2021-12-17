@@ -1,0 +1,14 @@
+@media screen and (max-width: 1199px) {
+	.type-slab .product {
+	width: calc(33% - 24px) !important;
+}
+}
+@media screen and (max-width: 960px) {
+	.type-slab .product {
+	width: calc(50% - 26px) !important;
+}
+}
+@media screen and (max-width: 768px) {
+	.type-slab .product {
+	width: calc(100% - 24px) !important;
+}
