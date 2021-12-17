@@ -1,0 +1,2 @@
+<a class="edit" href="'.get_site_url().'/wp-admin/post.php?post='.$post->ID.'&action=edit">Редактировать</a>
+<a class="delete" href="'.get_site_url().'/wp-admin/'.wp_nonce_url( "post.php?post=$post->ID&amp;action=trash", 'trash-post_' . $post->ID ).'">Удалить</a>
