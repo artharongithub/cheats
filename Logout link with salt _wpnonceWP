@@ -1,1 +1,2 @@
 
+return '<a href="' . esc_url( wp_logout_url( $atts['redirect'] ) ) . '">Выйти</a>';
