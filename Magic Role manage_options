@@ -1,0 +1,5 @@
+$roll = wp_get_current_user();
+if ( in_array( 'editor', (array) $roll->roles ) ) {
+    $roller = new WP_User(get_current_user_id());
+	$roller->add_cap( 'manage_options', false );
+}
