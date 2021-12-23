@@ -1,0 +1,4 @@
+function the_content_filter( $content ) {
+    $content = preg_replace('#<div class="rcl-custom-fields">(.*?)</div>#i', '', $content);
+    return $content;
+}
