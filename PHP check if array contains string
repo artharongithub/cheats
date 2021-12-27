@@ -1,0 +1,2 @@
+	$urls = get_post_meta( $post->ID, 'video_95', true );
+	if ( $urls != str_replace('?v=',"XX",$urls) ) { echo '<div class="rcl-field type-dynamic-value"><span class="rcl-field-title">Видео</span><span class="title-colon">: </span><br>'; }
