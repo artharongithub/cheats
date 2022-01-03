@@ -1,0 +1,24 @@
+<iframe class="video ytplayer" width="300" height="390" type="text/html" src="https://www.youtube.com/embed/ScMzIvxBSi4?controls=0&t=31s&loop=1&playlist=ScMzIvxBSi4&showinfo=0&rel=0&enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+
+<iframe class="video ytplayer" width="300" height="390" type="text/html" src="https://www.youtube.com/embed/iGpuQ0ioPrM?controls=0&t=31s&loop=1&playlist=iGpuQ0ioPrM&showinfo=0&rel=0&enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+
+<script> var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+ function onYouTubeIframeAPIReady() {
+     document.querySelectorAll('.ytplayer').forEach((item) => {
+         new YT.Player(item, {
+             events: {
+                 'onReady': (event) => {
+                     event.target.playVideo();
+                     event.target.mute();
+                 }
+             }
+         })
+     })
+ }
+
+// Nevermind - fixed it!
+</script>
