@@ -1,0 +1,21 @@
+var_dump(get_field('book_article'));
+$article_id = get_field('book_article');
+$args = array(
+	'post_type' => 'book',
+	'posts_per_page' => -1,
+	'meta_query' => array(
+		'relation' => 'AND',
+		array(
+			'key' => 'book_article',
+			'value' => $article_id,
+			'compare' => 'LIKE'
+			),
+		),
+	);
+$wp_query = new WP_Query($args);
+
+if ($wp_query->have_posts()) { ?>
+<html>
+<?php 
+wp_reset_query();
+} ?>
