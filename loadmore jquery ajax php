@@ -1,0 +1,185 @@
+////////////PHP
+if ($postslist->have_posts()) :
+while ($postslist->have_posts()) : $postslist->the_post();
+$dnd[] = $post->ID;
+$exclude = implode(',', $dnd);
+
+////////////HTML
+				<?php if ($paged < $max_pages) : ?>
+					<div data-parent-name="<?= $nameParentCat ?>" data-exclude-array="<?= $exclude ?>" data-cat-name="<?= $args['category_name'] ?>" data-meta-value="<?= $args['meta_value'] ?>" data-orderby="<?= $args['orderby'] ?>" data-order="<?= $args['order'] ?>" data-meta-key="<?= $args['meta_key'] ?>" data-perpage="<?php echo $args['posts_per_page'] ?>" data-max_pages="<?php echo $max_pages; ?>" data-paged="<?php echo $paged; ?>" data-posttype="post" data-url="<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn__more__pages btn btn_more">Показать еще</div>
+				<?php endif; ?>
+        
+////////////JQUERY
+	$('body').on('click', '.btn__more__pages', function () {
+		let btnMore = $('.btn__more__pages');
+
+		if (!btnMore.length || btnMore.hasClass('process')) return false;
+		let text = btnMore.text();
+		let paged = btnMore.attr('data-paged');
+		let maxPages = btnMore.attr('data-max_pages');
+		let postType = btnMore.attr('data-posttype');
+		let url = btnMore.attr('data-url');
+		let categ = btnMore.attr('data-categ');
+		let perpage = btnMore.attr('data-perpage');
+		let metaKey = btnMore.attr('data-meta-key');
+		let metaValue = btnMore.attr('data-meta-value');
+		let orderby = btnMore.attr('data-orderby');
+		let order = btnMore.attr('data-order');
+		let catName = btnMore.attr('data-cat-name');
+		let searchRequest = btnMore.attr('data-search-request');
+		let parentCatName = btnMore.attr('data-parent-name');
+		let excludePosts = btnMore.attr('data-exclude-array');
+		let cardsName;
+		switch (postType) {
+			case 'katalog':
+				cardsName = $('.card-company');
+				break;
+			case 'vopros-otvet':
+				cardsName = $('.questions__item');
+				break;
+			default:
+				cardsName = $('.main-card__item');
+				break;
+		}
+		// let cardsName = postType == 'katalog' ? $('.card-company') : $('.main-card__item');
+		let offsetTopLastCard = cardsName.last().offset().top;
+		let heightOneCard = 300;
+
+		if ($(document).scrollTop() > (offsetTopLastCard - heightOneCard * 3) && !$('btnMore').hasClass('process')) {
+			btnMore.addClass('process');
+			$.ajax({
+				type: "GET",
+				url: window.wp_data.ajax_url,
+				data: {
+					paged: paged,
+					posttype: postType,
+					url: url,
+					categ: categ,
+					perpage: perpage,
+					metaKey: metaKey,
+					metaValue: metaValue,
+					orderby: orderby,
+					order: order,
+					catName: catName,
+					searchRequest: searchRequest,
+					parentCatName: parentCatName,
+					exclude: excludePosts,
+					action: 'loadmore'
+				},
+				success: function (response) {
+					let res = JSON.parse(response);
+					console.log(res);
+					if (res.list != '') {
+						switch (postType) {
+							case 'katalog':
+								$('.all-companies__wrap').append(res.list);
+								break;
+							case 'vopros-otvet':
+								$('.questions').append(res.list);
+								break;
+							default:
+								$('.main-card').append(res.list);
+								break;
+						}
+					}
+
+					// $(postType == 'katalog' ? '.all-companies__wrap' : '.main-card').append(res.list);
+					if (res.pagination != '') $('.pagination__blog').html(res.pagination);
+					// setLocation(res.location);
+					btnMore.attr('data-paged', res.paged);
+					btnMore.attr('data-url', res.location);
+					btnMore.removeClass('process');
+					if (res.hidebtn) btnMore.remove();
+				}
+			});
+		}
+	});
+
+///////////////////////AJAX
+$exclude = $_REQUEST['exclude'];
+$postNotIn = explode(",", $exclude);
+		$args = array(
+			// 'post_type' => $_REQUEST['posttype'],
+			'category_name' => $_REQUEST['catName'],
+			'posts_per_page' => $_REQUEST['perpage'],
+			'paged' => $paged,
+			's' => $_REQUEST['searchRequest'],
+			'post__not_in' => array($postNotIn)
+		);
+    //////////////////////////////////
+    		function cardsList()
+		{ ?>
+
+			<div class="main-card__item">
+				<a class="main-card__thumnail" href="<?php the_permalink(); ?>">
+					<?= get_the_post_thumbnail($post_id, array('510', '300'), array(
+						'class' => "main-card__thumnail-inner",
+					)); ?>
+				</a>
+				<div class="main-card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+				</div>
+				<div class="main-card__info">
+					<div class="main-card__info-left">
+						<div class="main-card__info-views">
+							<div class="main-card__info-views-icon">
+								<svg class="icon icon-view" viewBox="0 0 32 32">
+									<use xlink:href="/wp-content/themes/Prosalonoff/img/sprite.svg#view"></use>
+								</svg>
+							</div>
+							<div class="main-card__info-views-text"><?php echo the_views(); ?></div>
+						</div>
+						<div class="main-card__info-comments">
+							<div class="main-card__info-comments-icon">
+								<svg class="icon icon-comments" viewBox="0 0 32 32">
+									<use xlink:href="/wp-content/themes/Prosalonoff/img/sprite.svg#comments"></use>
+								</svg>
+							</div>
+							<div class="main-card__info-comments-text"><?php echo get_comments_number(); ?></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php }
+	}
+	$postslist = new WP_Query($args);
+	$max_pages = $postslist->max_num_pages;
+
+	if ($postslist->have_posts()) {
+		ob_start();
+		while ($postslist->have_posts()) {
+			$postslist->the_post();
+			if ($_REQUEST['catName'] == 'apparaty' || $_REQUEST['parentCatName'] == 'Аппараты') {
+				apparatList();
+			} elseif ($_REQUEST['posttype'] == 'katalog') {
+				cardsCompany();
+			} elseif ($_REQUEST['posttype'] == 'vopros-otvet') {
+				cardsQuestions();
+			} else {
+				cardsList();
+			}
+		}
+		$list = ob_get_clean();
+
+		ob_start();
+		$_REQUEST['url'] = preg_replace('#\/page\/\d{1,}\/#U', '', $_REQUEST['url']);
+		$base = $_REQUEST['url'];
+		$orig_req_uri = $_SERVER['REQUEST_URI'];
+
+		// Overwrite the REQUEST_URI variable
+		$_SERVER['REQUEST_URI'] = $base;
+
+		$temp_query = $wp_query;
+		$wp_query   = NULL;
+		$wp_query   = $postslist;
+		the_posts_pagination(array(
+			'end_size' => 2,
+			'prev_text' => '&lt;',
+			'next_text' => '&gt;',
+			'screen_reader_text' => '&ensp;',
+		));
+		$_SERVER['REQUEST_URI'] = $orig_req_uri;
+		$wp_query = NULL;
+		$wp_query = $temp_query;
+		$pagination = ob_get_clean();
+		wp_reset_postdata();
+	}
