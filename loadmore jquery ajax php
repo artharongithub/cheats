@@ -1,3 +1,4 @@
+///////////archive.php pr*******.js template-functions.php/////////////////
 ////////////PHP
 if ($postslist->have_posts()) :
 while ($postslist->have_posts()) : $postslist->the_post();
