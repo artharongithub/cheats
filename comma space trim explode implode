@@ -1,0 +1,10 @@
+if ((get_option('new_option_name'))) {
+$adresses = get_option('new_option_name');
+$adresses = explode(',', $adresses);
+function trim_value(&$value) 
+{ 
+    $value = trim($value); 
+}
+array_walk($adresses, 'trim_value');
+$emailTo = implode(',', $adresses);
+} else { $emailTo = get_option('admin_email'); }
